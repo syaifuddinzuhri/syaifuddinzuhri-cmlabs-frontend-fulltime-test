@@ -8,7 +8,7 @@ const Navbar = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   return (
-    <nav className="bg-white shadow">
+    <nav className="bg-white shadow sticky top-0 z-10">
       <div className="flex items-center font-medium justify-between w-full container py-3">
         <div className="z-50 md:w-auto w-full flex justify-between">
           <h1
