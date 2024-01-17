@@ -14,4 +14,18 @@ const useGetIngredientsAll = () =>
     }
   );
 
-export { useGetIngredientsAll };
+const useGetIngredientDetail = (ingredientName: string) =>
+  useQuery(
+    ["GetIngredientDetail", ingredientName],
+    () => {
+      return api.get<Response.Api<any>>(
+        `${API.ingredient.detail}?i=${ingredientName}`
+      );
+    },
+    {
+      retry: 0,
+      cacheTime: 0,
+    }
+  );
+
+export { useGetIngredientsAll, useGetIngredientDetail };

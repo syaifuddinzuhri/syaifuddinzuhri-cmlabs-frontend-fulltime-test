@@ -3,13 +3,15 @@ import React, { useState } from "react";
 import NavLinks from "./NavLinks";
 import { IoClose, IoMenu } from "react-icons/io5";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   return (
     <nav className="bg-white shadow">
       <div className="flex items-center font-medium justify-between w-full container py-3">
         <div className="z-50 md:w-auto w-full flex justify-between">
-          <h1 className="text-primary text-2xl font-medium">MealApp</h1>
+          <h1 className="text-primary text-2xl font-medium cursor-pointer" onClick={() => router.push(`/`) }>MealApp</h1>
           <div className="text-2xl md:hidden" onClick={() => setOpen(!open)}>
             {open ? <IoClose /> : <IoMenu />}
           </div>

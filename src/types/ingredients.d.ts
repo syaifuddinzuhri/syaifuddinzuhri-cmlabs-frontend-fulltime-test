@@ -4,6 +4,11 @@ interface ICategory {
   strDescription: string;
   strType: string;
 }
+interface IMeal {
+  strMeal: string;
+  strMealThumb: string;
+  idMeal: string;
+}
 
 declare namespace IIngredients {
   interface IngredientsState {
