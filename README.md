@@ -8,8 +8,6 @@ ___
 
 ## Getting Started
 
-- Open the GitHub repository link https://github.com/syaifuddinzuhri/syaifuddinzuhri-cmlabs-frontend-parttime-test
-- Open your terminal / cmd
 - Cloning this repository to local device
 - Open project in VS Code
 - Then, is there a ```.env``` file. If it doesn't exist, please create it and fill it in as follows:
