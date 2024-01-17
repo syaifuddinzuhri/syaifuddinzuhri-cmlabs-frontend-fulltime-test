@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import store from '@/store';
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function RootLayout({
   children,
