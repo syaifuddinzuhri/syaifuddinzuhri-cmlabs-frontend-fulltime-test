@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
+import Button from "@/components/Button";
 import NotFoundData from "@/components/NotFoundData";
 import ListCategorySkeleton from "@/components/categories/ListCategorySkeleton";
 import Breadcrumb from "@/components/global/Breadcrumb";
 import HeadSection from "@/components/global/HeadSection";
+import DetailProduct from "@/components/product/DetailProduct";
 import {
   IngredientsContext,
   IngredientsProvider,
@@ -12,8 +14,10 @@ import { combineRecipes } from "@/utils/combineRecipes";
 import { withProviders } from "@/utils/withProviders";
 import { useParams, useRouter } from "next/navigation";
 import React, { useContext } from "react";
+import { IoIosArrowBack } from "react-icons/io";
 
 const DetailMeals = () => {
+  const router = useRouter();
   const { name } = useParams();
   const decodedName = Array.isArray(name)
     ? decodeURIComponent(name[0])
@@ -29,13 +33,14 @@ const DetailMeals = () => {
   const breadcrumbItems = [
     { label: "Home", href: "/" },
     { label: "Foods", href: "/" },
-    { label: decodedName || "Meals" },
+    { label: decodedName || "Meals", href: `/ingredient/${decodedName}` },
     { label: strMeal, href: "/", isActive: true },
   ];
 
   return (
     <div className="container">
       <Breadcrumb items={breadcrumbItems} />
+      <Button className="btn-outline-primary mb-8" title="Back" icon={<IoIosArrowBack/>} onClick={() => router.push(`/ingredient/${decodedName}`)}/>
       {isLoading ? (
         <ListCategorySkeleton />
       ) : (
@@ -43,44 +48,7 @@ const DetailMeals = () => {
           {!detailMeal ? (
             <NotFoundData />
           ) : (
-            <>
-              <h1 className="text-2xl md:text-5xl font-bold mb-3">
-                {dataDetail?.strMeal}
-              </h1>
-              <h1 className="text-xl font-medium mb-5 text-primary">
-                {dataDetail?.strArea}
-              </h1>
-              <hr />
-              <div className="flex flex-col md:flex-row gap-8 bg-white py-8">
-                <div className="w-full md:w-2/5">
-                  <div className="w-full h-[400px] md:h-[600px] rounded-3xl border border-gray-200 overflow-hidden">
-                    <img
-                      src={dataDetail.strMealThumb}
-                      alt={dataDetail?.strMeal}
-                      className="object-cover w-full h-full"
-                    />
-                  </div>
-                </div>
-                <div className="md:w-3/5 w-full">
-                  <div className="mb-5">
-                    <HeadSection title="Instructions" />
-                    <p>{dataDetail?.strInstructions}</p>
-                  </div>
-                  <div className="mb-5">
-                    <HeadSection title="Recipes" />
-                    <div className="py-5 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {combineRecipes(dataDetail)?.map(
-                        (item: any, i: number) => (
-                          <li key={i}>
-                            {item?.measure} {item?.ingredient}
-                          </li>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </>
+            <DetailProduct dataDetail={dataDetail}/>
           )}
         </>
       )}

@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/Button";
 import NotFoundData from "@/components/NotFoundData";
 import CategoryCard from "@/components/categories/CategoryCard";
 import ListCategorySkeleton from "@/components/categories/ListCategorySkeleton";
@@ -12,6 +13,7 @@ import {
 import { withProviders } from "@/utils/withProviders";
 import { useParams, useRouter } from "next/navigation";
 import React, { useContext } from "react";
+import { IoIosArrowBack, IoIosArrowDropleftCircle, IoMdArrowDropleft } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 
 const DetailIngredient = () => {
@@ -37,6 +39,7 @@ const DetailIngredient = () => {
     <div className="container">
       <Breadcrumb items={breadcrumbItems} />
       <HeadSection title="List of Meals" />
+      <Button className="btn-outline-primary mb-8" title="Back" icon={<IoIosArrowBack/>} onClick={() => router.push('/')}/>
       {isLoading ? (
         <ListCategorySkeleton />
       ) : (
