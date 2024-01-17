@@ -1,9 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import NotFoundData from "@/components/NotFoundData";
-import CategoryCard from "@/components/categories/CategoryCard";
 import ListCategorySkeleton from "@/components/categories/ListCategorySkeleton";
-import TextInput from "@/components/form/TextInput";
 import Breadcrumb from "@/components/global/Breadcrumb";
 import HeadSection from "@/components/global/HeadSection";
 import {
@@ -14,10 +12,8 @@ import { combineRecipes } from "@/utils/combineRecipes";
 import { withProviders } from "@/utils/withProviders";
 import { useParams, useRouter } from "next/navigation";
 import React, { useContext } from "react";
-import { IoSearch } from "react-icons/io5";
 
 const DetailMeals = () => {
-  const router = useRouter();
   const { name } = useParams();
   const decodedName = Array.isArray(name)
     ? decodeURIComponent(name[0])
@@ -75,7 +71,9 @@ const DetailMeals = () => {
                     <div className="py-5 w-full grid grid-cols-1 md:grid-cols-2 gap-4">
                       {combineRecipes(dataDetail)?.map(
                         (item: any, i: number) => (
-                          <li key={i}>{item?.measure} {item?.ingredient}</li>
+                          <li key={i}>
+                            {item?.measure} {item?.ingredient}
+                          </li>
                         )
                       )}
                     </div>
