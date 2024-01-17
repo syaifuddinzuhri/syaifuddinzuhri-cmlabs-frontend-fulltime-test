@@ -11,7 +11,12 @@ const Navbar = () => {
     <nav className="bg-white shadow">
       <div className="flex items-center font-medium justify-between w-full container py-3">
         <div className="z-50 md:w-auto w-full flex justify-between">
-          <h1 className="text-primary text-2xl font-medium cursor-pointer" onClick={() => router.push(`/`) }>MealApp</h1>
+          <h1
+            className="text-primary text-2xl font-medium cursor-pointer"
+            onClick={() => router.push(`/`)}
+          >
+            MealApp
+          </h1>
           <div className="text-2xl md:hidden" onClick={() => setOpen(!open)}>
             {open ? <IoClose /> : <IoMenu />}
           </div>
@@ -32,6 +37,7 @@ const Navbar = () => {
         md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-16 pl-4
         duration-500 ${open ? "left-0" : "left-[-100%]"}
         `}
+        style={{ zIndex: 999999 }}
         >
           <NavLinks />
           <div className="py-5">
