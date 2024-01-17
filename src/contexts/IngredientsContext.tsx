@@ -5,21 +5,27 @@ type ProviderProps = {
 };
 type Props = {
   setState: React.Dispatch<React.SetStateAction<Props["state"]>>;
-  state: {};
+  state: {
+    searchTerm?: string
+  };
   data: {
     ingredients?: any;
     isLoading?: boolean;
   };
   action: {
-    filterIngredients: (filterText: string) => any;
+    filterIngredients: () => any;
+    setSearchTerm: (searchTerm: string) => void;
   };
 };
 const initialValues: Props = {
   setState: () => {},
-  state: {},
+  state: {
+    searchTerm: ''
+  },
   data: {},
   action: {
     filterIngredients: () => {},
+    setSearchTerm: () => {},
   },
 };
 
@@ -33,11 +39,15 @@ const useIngredientsContext = () => {
     isLoading: ingredientAllDataLoading,
   } = useGetIngredientsAll();
 
-  const filterIngredients = (filterText: string): any => {
+  const setSearchTerm = (searchTerm: string): void => {
+    setState((prev) => ({ ...prev, searchTerm }));
+  };
+
+  const filterIngredients = (): any => {
     if (!ingredientAllData?.data) {
       return [];
     }
-    const lowerSearchTerm = filterText.toLowerCase();
+    const lowerSearchTerm = state.searchTerm?.toLowerCase();
 
     const filteredMeals = ingredientAllData?.data.meals.filter((meal: any) =>
       meal.strIngredient.toLowerCase().includes(lowerSearchTerm)
@@ -56,6 +66,7 @@ const useIngredientsContext = () => {
     },
     action: {
       filterIngredients,
+      setSearchTerm
     },
   };
 };

@@ -14,13 +14,13 @@ import ListCategorySkeleton from "./ListCategorySkeleton";
 
 const ListCategory = () => {
   const {
+    state: {searchTerm},
     data: { isLoading, ingredients },
-    action: { filterIngredients },
+    action: { filterIngredients, setSearchTerm },
   } = useContext(IngredientsContext);
 
-  const [filterText, setFilterText] = useState("");
 
-  const filteredIngredients = filterIngredients(filterText);
+  const filteredIngredients = filterIngredients();
 
   return (
     <div className="py-8">
@@ -35,8 +35,8 @@ const ListCategory = () => {
             type="text"
             name="keyword"
             icon={<IoSearch />}
-            value={filterText}
-            onChange={(e) => setFilterText(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search ingredients..."
           />
           <div className="py-5 w-full grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 md:grid-cols-3 gap-4">
