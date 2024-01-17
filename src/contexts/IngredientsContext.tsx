@@ -1,4 +1,4 @@
-import { useGetIngredientDetail, useGetIngredientsAll } from "@/api";
+import { useGetIngredientDetail, useGetIngredientDetailMeals, useGetIngredientsAll } from "@/api";
 import ListCategory from "@/components/categories/ListCategory";
 import { useParams } from "next/navigation";
 import React, { createContext, FC, ReactNode, useState } from "react";
@@ -11,7 +11,9 @@ type Props = {
     searchTerm?: string
   };
   data: {
+    detailMeal?: any;
     ingredients?: any;
+    detailIngredients?: any;
     isLoading?: boolean;
   };
   action: {
@@ -42,11 +44,18 @@ const useIngredientsContext = () => {
     isSuccess: ingredientAllDataSuccess,
     isLoading: ingredientAllDataLoading,
   } = useGetIngredientsAll();
+
   const {
     data: ingredientDetailData,
     isSuccess: ingredientDetailDataSuccess,
     isLoading: ingredientDetailDataLoading,
-  } = useGetIngredientDetail(`${params.id}` ?? "");
+  } = useGetIngredientDetail(`${params.name}` ?? "");
+
+  const {
+    data: ingredientDetailDataMeals,
+    isSuccess: ingredientDetailDataMealsSuccess,
+    isLoading: ingredientDetailDataMealsLoading,
+  } = useGetIngredientDetailMeals(`${params.id}` ?? "");
 
   const setSearchTerm = (searchTerm: string): void => {
     setState((prev) => ({ ...prev, searchTerm }));
@@ -78,9 +87,11 @@ const useIngredientsContext = () => {
     state,
     setState,
     data: {
-      ingredients: ingredientAllData?.data || ingredientDetailData?.data,
-      isSuccess: ingredientAllDataSuccess || ingredientDetailDataSuccess,
-      isLoading: ingredientAllDataLoading || ingredientDetailDataLoading,
+      detailMeal: ingredientDetailDataMeals?.data?.meals,
+      detailIngredients: ingredientDetailData?.data,
+      ingredients: ingredientAllData?.data,
+      isSuccess: ingredientAllDataSuccess || ingredientDetailDataSuccess || ingredientDetailDataMealsSuccess,
+      isLoading: ingredientAllDataLoading || ingredientDetailDataLoading || ingredientDetailDataMealsLoading,
     },
     action: {
       filterIngredients,

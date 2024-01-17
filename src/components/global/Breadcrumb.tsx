@@ -2,7 +2,7 @@ import React from 'react';
 import BreadcrumbItem from './BreadcrumbItem';
 
 type BreadcrumbItem = {
-  label: string;
+  label?: any;
   href?: string;
   isActive?: boolean;
 };
@@ -14,11 +14,11 @@ type BreadcrumbProps = {
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
     <nav className="py-4 mb-5">
-      <ol className="list-none p-0 inline-flex">
+      <ol className="list-none p-0 inline-flex flex-wrap">
         {items.map((item, index) => (
           <BreadcrumbItem
             key={index}
-            label={item.label}
+            label={item.label ?? ''}
             isLast={index === items.length - 1}
             href={item.href}
             isActive={item.isActive}

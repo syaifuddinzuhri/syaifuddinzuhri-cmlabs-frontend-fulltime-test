@@ -10,12 +10,14 @@ import {
   IngredientsProvider,
 } from "@/contexts/IngredientsContext";
 import { withProviders } from "@/utils/withProviders";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useContext } from "react";
 import { IoSearch } from "react-icons/io5";
 
 const DetailIngredient = () => {
   const router = useRouter();
+  const { name } = useParams();
+  const decodeName = Array.isArray(name) ? decodeURIComponent(name[0]) : decodeURIComponent(name);
 
   const {
     state: { searchTerm },
@@ -27,8 +29,8 @@ const DetailIngredient = () => {
 
   const breadcrumbItems = [
     { label: "Home", href: "/" },
-    { label: "Ingredient", href: "/" },
-    { label: "Meal", isActive: true },
+    { label: "Foods", href: "/" },
+    { label: decodeName || "Meals", isActive: true },
   ];
 
   return (
@@ -54,9 +56,7 @@ const DetailIngredient = () => {
               {filteredMeal.map((item: IMeal, i: number) => (
                 <CategoryCard
                   key={i}
-                  onClick={() =>
-                    router.push(`/ingredient/${item.idMeal}`)
-                  }
+                  onClick={() => router.push(`/ingredient/${decodeName}/${item.idMeal}`)}
                   name={item.strMeal}
                 />
               ))}
