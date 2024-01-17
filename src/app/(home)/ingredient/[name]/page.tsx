@@ -61,6 +61,7 @@ const DetailIngredient = () => {
                   key={i}
                   onClick={() => router.push(`/ingredient/${decodeName}/${item.idMeal}`)}
                   name={item.strMeal}
+                  image={item.strMealThumb}
                 />
               ))}
             </div>
