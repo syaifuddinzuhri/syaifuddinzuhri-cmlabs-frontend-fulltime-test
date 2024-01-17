@@ -3,7 +3,7 @@
 ___
 
 ## Requirements
-- Minium Node Version >18
+- Minimum Node Version >= 18
 - Install npm or yarn
 
 ## Getting Started
